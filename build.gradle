@@ -77,14 +77,14 @@ task hello << {
 
 void executeGit( String cmd ) {
     println("**** Executing Git command: [${cmd}]")
-    def process = cmd.execute()
-    String output = process.text.trim()
-    def exitValue = process.exitValue()
-    println("**** process.exitValue() = ${exitValue}")
-    if (exitValue != 0 ) {
-        throw new GradleException("Last command [$cmd] failed with exitValue: [$exitValue]")
-    }
-    println(output)
+//    def process = cmd.execute()
+//    String output = process.text.trim()
+//    def exitValue = process.exitValue()
+//    println("**** process.exitValue() = ${exitValue}")
+//    if (exitValue != 0 ) {
+//        throw new GradleException("Last command [$cmd] failed with exitValue: [$exitValue]")
+//    }
+//    println(output)
 }
 
 task incrementVersion(description: 'increases the version number') {
@@ -120,9 +120,9 @@ task incrementPlatform(description: "increase the project version number through
 
         def value = rootIncrementReleaseVersion()
 
-        executeGit("git commit -m  \"RELEASE_${value}\"")
+        executeGit("git commit -m  'RELEASE_${value}'")
 
-        executeGit("git tag RELEASE_${value} -m \"RELEASE_${value}\"")
+        executeGit("git tag RELEASE_${value} -m 'RELEASE_${value}'")
 
         executeGit("git pull origin master")
 
