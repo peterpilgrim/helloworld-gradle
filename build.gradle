@@ -116,7 +116,7 @@ task incrementPlatform(description: "increase the project version number through
 
         // FIXME: Read up on executing process from Gradle and Groovy
 
-        executeGit("git checkout master")
+//        executeGit("git checkout master")
 
         def value = rootIncrementReleaseVersion()
 
