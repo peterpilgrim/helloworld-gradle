@@ -126,7 +126,8 @@ task incrementPlatform(description: "increase the project version number through
 
         def value = rootIncrementReleaseVersion()
 
-        executeGit("git commit -a -m  'RELEASE_${value}'")
+        executeGit("git add "+"version.properties")
+        executeGit("git commit -m  'RELEASE_${value}'")
 
         executeGit("git tag RELEASE_${value} -m 'RELEASE_${value}'")
 
