@@ -78,7 +78,13 @@ task hello << {
 void executeGit( String cmd ) {
     println("**** Executing Git command: [${cmd}]")
     def process = cmd.execute()
-    String output = process.text.trim()
+    StringBuilder outputBuffer = new StringBuffer()
+    StringBuilder errorBuffer = new StringBuffer()
+    process.consumeProcessOutput( outputBuffer)
+    process.consumeProcessOutput( errorBuffer)
+    process.waitFor()
+    println "OUTPUT: "+outputBuffer.toString().trim()
+    println "ERROR: "+errorBuffer.toString().trim()
     def exitValue = process.exitValue()
     println("**** process.exitValue() = ${exitValue}")
     if (exitValue != 0 ) {
