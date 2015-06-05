@@ -90,7 +90,6 @@ void executeGit( String cmd ) {
     if (exitValue != 0 ) {
         throw new GradleException("Last command [$cmd] failed with exitValue: [$exitValue]")
     }
-    println(output)
 }
 
 task incrementVersion(description: 'increases the version number') {
@@ -120,13 +119,12 @@ task incrementPlatform(description: "increase the project version number through
     doLast{
         //    println 'git checkout master'.execute().text.split().size()
 
-        // FIXME: Read up on executing process from Gradle and Groovy
-
-//        executeGit("git checkout master")
+        // executeGit("git checkout master")
 
         def value = rootIncrementReleaseVersion()
 
         executeGit("git add "+"version.properties")
+
         executeGit("git commit -m  'RELEASE_${value}'")
 
         executeGit("git tag RELEASE_${value} -m 'RELEASE_${value}'")
