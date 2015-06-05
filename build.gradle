@@ -74,6 +74,19 @@ task hello << {
 // Root project tasks
 // ==========================================================================================
 
+
+void executeGit( String cmd ) {
+    println("**** Executing Git command: [${cmd}]")
+    def process = cmd.execute()
+    String output = process.text.trim()
+    def exitValue = process.exitValue()
+    println("**** process.exitValue() = ${exitValue}")
+    if (exitValue != 0 ) {
+        throw new GradleException("Last command [$cmd] failed with exitValue: [$exitValue]")
+    }
+    println(output)
+}
+
 task incrementVersion(description: 'increases the version number') {
     doLast {
         println("**** incrementing the version number inside name: ${project.name}")
@@ -97,22 +110,22 @@ task executeGit(description: "execute git command") {
     }
 }
 
-task executeIncrementVersion(description: "execute git command") {
+task incrementPlatform(description: "increase the project version number through GIT") {
     doLast{
         //    println 'git checkout master'.execute().text.split().size()
 
         // FIXME: Read up on executing process from Gradle and Groovy
 
-        println ">>>> git checkout master"
+        executeGit("git checkout master")
 
         def value = rootIncrementReleaseVersion()
 
-        println ">>>> git commit -m  \"RELEASE_${value}\""
+        executeGit("git commit -m  \"RELEASE_${value}\"")
 
-        println ">>>> git tag RELEASE_${value} -m \"RELEASE_${value}\""
+        executeGit("git tag RELEASE_${value} -m \"RELEASE_${value}\"")
 
-        println ">>>> git pull origin master"
+        executeGit("git pull origin master")
 
-        println ">>>> git push --tags"
+        executeGit("git push --tags")
     }
 }
