@@ -78,8 +78,8 @@ task hello << {
 void executeGit( String cmd ) {
     println("**** Executing Git command: [${cmd}]")
     def process = cmd.execute()
-    StringBuilder outputBuffer = new StringBuffer()
-    StringBuilder errorBuffer = new StringBuffer()
+    StringBuilder outputBuffer = new StringBuilder()
+    StringBuilder errorBuffer = new StringBuilder()
     process.consumeProcessOutput( outputBuffer)
     process.consumeProcessOutput( errorBuffer)
     process.waitFor()
