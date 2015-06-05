@@ -117,8 +117,6 @@ task executeGit(description: "execute git command") {
 
 task incrementPlatform(description: "increase the project version number through GIT") {
     doLast{
-        //    println 'git checkout master'.execute().text.split().size()
-
         // executeGit("git checkout master")
 
         def value = rootIncrementReleaseVersion()
